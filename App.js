@@ -1,35 +1,58 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-const parent = React.createElement(
-    "div",
-    {id:"parent"},
-    [React.createElement(
-        "div",
-        {id:"child"},
-        React.createElement("h1",{},"This is Namaste React 🚀"), React.createElement("h2",{},"gvdasgfasfbgfffg")
-    ),React.createElement(
-        "div",
-        {id:"child2"},
-        React.createElement("h1",{},"I'm an H1 tag"), React.createElement("h2",{},"I'm an H2 tag")
-    )]
-    );
+
+// React.createElement  ==> Object ==> HTML Element (render)
+
+// const heading = React.createElement(
+//     "h1",
+//     {id:"heading"},
+//     "Namaste React 🚀");
+
+// console.log(heading)
+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(heading) 
+
+//JSX 
+//JSX (transpiled before it reaches the JS Engine )=>PARCEL =>Babel
+//JSX ==>Babel transpiled it to React.CreateElement =>ReactElement -JS Object  ==> HTMLElement(render)
 
 
+// const jsxHeading = <h1 className="head" tabIndex = "1">Namaste React  Using JSX🚀</h1>;
+const jsxHeading = (<h1 className="head" tabIndex = "1">
+    Namaste React  Using JSX🚀
+    </h1>);
+console.log(jsxHeading);
 
 
+//React Component 
+//Functional Componenet -New Way
 
-const heading = React.createElement(
-    "h1",
-    {id:"heading",xyz:"abc"},
-    "Hello World from react"
+const HeadingComponent1 = () => {
+    return <h1 className="heading">Namaste React Functional Componenet1</h1>
+};
+// insort we can write it 
+// const HeadingComponent = () =><h1 className="heading">Namaste React Functional Component</h1>;
+
+
+// Componenet Composition 
+const Title = function(){
+    return (<h1 className="head" tabIndex="5">
+        Namaste React Using JSX 🚀
+    </h1>
+)
+};
+const number = 1000;
+const HeadingComponent = () =>(
+    <div id="container">
+        {/* <Title/> */}
+        {jsxHeading}
+        <h2>{number}</h2>
+        {HeadingComponent1()}
+        <h1 className="heading">Namaste React Functional Component</h1>
+    </div>
 );
-// console.log(heading);//object
-console.log(parent);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(parent);
+root.render(<HeadingComponent/>)
 
-// root.render(heading);
-
-
-//here root.render function taking heading obj convertiong h1 tag and put into dom .
