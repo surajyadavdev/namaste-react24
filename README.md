@@ -22,3 +22,26 @@
 -Tree shaking Algorithm(remove unused code)
 -Different dev and production bundles.
 
+# Namaste Food 
+
+
+/**
+ * Header 
+ *   -Logo
+ *   -Nav -Item
+ * 
+ * Body 
+ *  -Search
+ *  -Restaurant Container
+ *     - Restaurant cards
+ *         -Img
+ *         -Name of the restaurant,star,cusines,delivary time 
+ * Footer
+ *  -Copyright
+ *  -Links
+ *  -Address
+ *  -Contact   
+ * 
+ */
+
+
