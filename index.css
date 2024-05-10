@@ -48,3 +48,20 @@
     cursor: pointer;
     margin: 10px;
 }
+.shimmer-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.shimmer-card{
+    margin: 20px;
+    width:200Px;
+    height:400Px;
+    background-color:#f0f0f0;
+}
+.login{
+    padding: 0 20px;
+    cursor: pointer;
+}
+.filter{
+    display: flex;
+}
