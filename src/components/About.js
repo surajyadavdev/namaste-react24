@@ -8,23 +8,54 @@ class About extends React.Component{
   constructor(props){
     super(props);
 
-    console.log("Parent Constructor");
+    this.state={
+      userinfo:{
+        name:"dummy",
+        location:"Default"
+      },
+    };
+    
   }
-  componentDidMount(){
-    console.log("Parent Component DidMount");
+  async componentDidMount(){
+    // console.log("Parent Component DidMount");
+    // Api call
+    const data = await fetch("https://api.github.com/users/surajyadavdev");
+    const json = await data.json();
+
+    this.setState({
+      userInfo:json,
+    });
+    console.log(json);
+
   }
 
+
   render(){
-    console.log("Parent Render");
+    // console.log("Parent Render");
     return(
         <div>
             <h1>About Class Component</h1>
             <h2>This Is Namaste React Webseries</h2>
-            <UserClass name={"Akshay Saini (Classes)"} location={"Jaipur"}/>
+            <UserClass name={"First"} location={"Jaipur"}/>
+            {/* <UserClass name={"Elon Musk (Classes)"} location={"Nevada"}/> */}
+
         </div>
     );
   }
 }
+/*
+Parent Constructor 
+-Parent Render
+  Akshay Constructer
+  AkshaY Render
+  Akshay ComponenetDidMount
+
+  Elon Constructer
+  Elon Render
+  Elon ComponenetDidMount
+-Parent ComponentDidMount
+
+*/
 
 // const About = ()=>{
 //   return(
