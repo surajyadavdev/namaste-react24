@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 // import resList from "./utils/mockData";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
@@ -10,9 +10,10 @@ const Body = () =>{
     const [listOfRestaurants,setListOfRestaurants] = useState([]);
     const[filteredRestaurants,setFilteredRestaurants] =useState([]);
     const [searchText,setSearchText] =useState("");
+    // const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
     // Whenever state variables upadte,react triggers a reconciliation cyle(re-renders the component )
-    console.log("Body Rendered");
+    // console.log("Body Rendered",listOfRestaurants);
     useEffect(() =>{
         // console.log("use effect called ");
         fetchData();
@@ -47,18 +48,18 @@ const Body = () =>{
     <Shimmer/>
     ) : (
         <div className="body">
-            <div className="filter">
-                <div className="search">
+            <div className="filter flex">
+                <div className="search m-4 p-4">
                     <input 
                       type="text"
-                      className="search-box"
+                      className="border border-solid border-black"
                       value={searchText}
                       onChange={(e)=>{
                         setSearchText(e.target.value);
                         // console.log(searchText);
                       }}
                     />
-                    <button
+                    <button className="px-4 py-2 bg-green-100 mx-4 rounded-lg"
                     onClick={() =>{
                        // filter the reastaurant cards and update the Ui
                       // searchText
@@ -72,26 +73,39 @@ const Body = () =>{
                     }} 
                     >Search</button>
                 </div>
-                <button className="filter-btn"
+                
+                <div className="search m-4 p-4 flex items-center ">
+                <button className="px-4 py-2 bg-gray-100 rounded-lg"
                  onClick={() =>{
                     // filter logic here
+                    console.log("clicked");
                     const filteredList = listOfRestaurants.filter(
                         (res) =>res.info.avgRating>4.3
                     );
-                    setListOfRestaurants(filteredList);
+                    // console.log(filteredList);
+                    // setListOfRestaurants(filteredList);
+                    setFilteredRestaurants(filteredList)
                     }}
                     
                     >
                         Top Rated Restaurants
                 </button>
+                </div>
             </div>
-            <div className="res-container">
+            {/* console.log(filteredRestaurants); */}
+            <div className="flex flex-wrap">
                   {filteredRestaurants.map((restaurant)=>(
                     <Link
                     key={restaurant.info.id}
                     to={"/restaurants/" + restaurant.info.id}
                     >
-                        <RestaurantCard  resData={restaurant}/>
+                        {/* {restaurant.data.promoted ? (
+                            <RestaurantCardPromoted resData={restaurant} />
+                        ) : (
+                            <RestaurantCard resData={restaurant}/>
+                        )}
+                        <RestaurantCard  resData={restaurant}/> */}
+                        <RestaurantCard resData={restaurant}/>
                     </Link>
                   ))}
                   {/* {resList.map((restaurant,index)=>(
