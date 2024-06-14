@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -12,13 +12,29 @@ import RestaurantMenu from "./components/RestaurantMenu";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
+import UserContext from "./utils/UserContext";
+
 const AppLayout = () =>{
+    const[userName,setUserName] = useState();
+
+    //authentication
+    useEffect(()=>{
+        //Make an APi call and send username and password
+        const data = {
+            name:"Suraj Yadav",
+        };
+        setUserName(data.name);
+    },[])
     return (
-        <div className="app">
-            <Header/>
-            <Outlet/>
-        </div>
-    )
+        <UserContext.Provider value = {{loggedInUser:userName}}>
+            <div className="app">
+            <UserContext.Provider value = {{loggedInUser:"Elon Musk"}}>
+                <Header/>
+            </UserContext.Provider>
+                <Outlet/>
+            </div>
+        </UserContext.Provider>
+    );
 };
 
 const appRouter = createBrowserRouter([

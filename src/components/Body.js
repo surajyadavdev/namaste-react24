@@ -13,7 +13,7 @@ const Body = () =>{
     // const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
     // Whenever state variables upadte,react triggers a reconciliation cyle(re-renders the component )
-    // console.log("Body Rendered",listOfRestaurants);
+    console.log("Body Rendered",listOfRestaurants);
     useEffect(() =>{
         // console.log("use effect called ");
         fetchData();
@@ -21,16 +21,20 @@ const Body = () =>{
 
     const fetchData = async()=>{
         // console.log("hi");
-        const data = await fetch(
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-        );
-        // console.log(data);
-
-        const json = await data.json();
-        // console.log(json);
-        // optional chaining 
-        setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-        setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        try{
+            const data = await fetch(
+                "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+            );
+            console.log(data);
+            if (!data.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const json = await data.json();
+            setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+            setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+            } catch (error){
+                console.error('Error fetching data:', error);
+            }
 
     }
     // conditional rendering 
@@ -44,7 +48,13 @@ const Body = () =>{
     Looks like you are Offline !! Please check your internet connection
     </h1>
     );
-    return listOfRestaurants.length ===0 ? (
+    console.log("length error",listOfRestaurants);
+    if (!Array.isArray(listOfRestaurants)) {
+        console.error("Expected listOfRestaurants to be an array, but got:", listOfRestaurants);
+        return <Shimmer />;
+    }
+
+    return listOfRestaurants.length === 0 ? (
     <Shimmer/>
     ) : (
         <div className="body">

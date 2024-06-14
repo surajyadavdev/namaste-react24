@@ -13,6 +13,8 @@ const useRestaurantMenu = (resId)=>{
         // console.log("abc2");
         // console.log(data);
         const json = await data.json();
+        console.log("abc");
+        console.log(json);
         // console.log(json);
         setResInfo(json.data);// data is from apis
     };
